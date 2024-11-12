@@ -74,7 +74,7 @@ clusterApi:
 
 ingress:
   enabled: false
-  clusterName: "weaviate" # Replace with your cluster name
+  clusterName: "" # Replace with your cluster name
   annotations: {}
   hosts: []
   grpc:
