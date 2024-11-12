@@ -11,14 +11,38 @@ metadata:
   {{- end }}
 spec:
   rules:
-    - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro # Replace with your desired host
+  {{- if .Values.ingress.hosts }}
+  {{- range .Values.ingress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $.Values.service.name }}
+            port:
+            {{- if $.Values.service.ports.name }}
+              name: {{ $.Values.service.ports.name }}
+            {{- else }}
+              number: {{ $.Values.service.ports.port }}
+            {{- end }}
+  {{- end }}
+  {{- else }}
+    - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ include "weaviate.fullname" . }}
+                name: {{ $.Values.service.name }}
                 port:
-                  name: http
+                {{- if $.Values.service.ports.name }}
+                  name: {{ $.Values.service.ports.name }}
+                {{- else }}
+                  number: {{ $.Values.service.ports.port }}
+                {{- end }}
+  {{- end }}
+
 {{- end }}
