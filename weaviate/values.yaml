@@ -74,15 +74,15 @@ clusterApi:
 
 ingress:
   enabled: false
-  clusterName: "" # Replace with your cluster name
+  clusterName: "weaviate" # Replace with your cluster name
   annotations: {}
   hosts: []
   grpc:
     enabled: false # Set to true to enable the gRPC ingress
-    annotations: {}
+    annotations: 
       # Example for gRPC ingress annotations (Traefik):
-      # traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      # traefik.ingress.kubernetes.io/service.serversscheme: h2c  
+      traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      traefik.ingress.kubernetes.io/service.serversscheme: h2c
     hosts: []
       # - host: weaviate-grpc.yourdomain.com # Example with specific host for gRPC
 
