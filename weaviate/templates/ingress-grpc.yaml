@@ -11,20 +11,20 @@ metadata:
   {{- end }}
 spec:
   rules:
-  {{- if .Values.ingress.grpc.hosts }}
-  {{- range .Values.ingress.grpc.hosts }}
+    {{- if .Values.ingress.grpc.hosts }}
+    {{- range .Values.ingress.grpc.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ $.Values.grpcService.name }}
-              port:
-                number: {{ $.Values.grpcService.ports.port }} # Assuming single port
-  {{- end }}
-  {{- else }}
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Values.grpcService.name }}
+                port:
+                  number: {{ $.Values.grpcService.ports[0].port }}
+    {{- end }}
+    {{- else }}
     - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro-grpc
       http:
         paths:
@@ -34,6 +34,6 @@ spec:
               service:
                 name: {{ $.Values.grpcService.name }}
                 port:
-                  number: {{ $.Values.grpcService.ports.port }}
-  {{- end }}
+                  number: {{ $.Values.grpcService.ports[0].port }}
+    {{- end }}
 {{- end }}

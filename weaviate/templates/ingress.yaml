@@ -11,24 +11,20 @@ metadata:
   {{- end }}
 spec:
   rules:
-  {{- if .Values.ingress.hosts }}
-  {{- range .Values.ingress.hosts }}
-  - host: {{ .host | quote }}
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ $.Values.service.name }}
-            port:
-            {{- if $.Values.service.ports.name }}
-              name: {{ $.Values.service.ports.name }}
-            {{- else }}
-              number: {{ $.Values.service.ports.port }}
-            {{- end }}
-  {{- end }}
-  {{- else }}
+    {{- if .Values.ingress.hosts }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Values.service.name }}
+                port:
+                  number: {{ $.Values.service.ports[0].port }}
+    {{- end }}
+    {{- else }}
     - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro
       http:
         paths:
@@ -38,11 +34,6 @@ spec:
               service:
                 name: {{ $.Values.service.name }}
                 port:
-                {{- if $.Values.service.ports.name }}
-                  name: {{ $.Values.service.ports.name }}
-                {{- else }}
-                  number: {{ $.Values.service.ports.port }}
-                {{- end }}
-  {{- end }}
-
+                  number: {{ $.Values.service.ports[0].port }}
+    {{- end }}
 {{- end }}
