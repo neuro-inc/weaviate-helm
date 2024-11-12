@@ -25,7 +25,7 @@ spec:
                   number: {{ (index $.Values.grpcService.ports 0).port }}
     {{- end }}
     {{- else }}
-    - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro-grpc
+    - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro
       http:
         paths:
           - path: /
