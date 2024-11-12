@@ -22,7 +22,7 @@ spec:
               service:
                 name: {{ $.Values.grpcService.name }}
                 port:
-                  number: {{ $.Values.grpcService.ports[0].port }}
+                  number: {{ (index $.Values.grpcService.ports 0).port }}
     {{- end }}
     {{- else }}
     - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro-grpc
@@ -34,6 +34,6 @@ spec:
               service:
                 name: {{ $.Values.grpcService.name }}
                 port:
-                  number: {{ $.Values.grpcService.ports[0].port }}
+                  number: {{ (index $.Values.grpcService.ports 0).port }}
     {{- end }}
 {{- end }}

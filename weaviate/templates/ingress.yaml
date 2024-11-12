@@ -22,7 +22,7 @@ spec:
               service:
                 name: {{ $.Values.service.name }}
                 port:
-                  number: {{ $.Values.service.ports[0].port }}
+                  number: {{ (index $.Values.service.ports 0).port }}
     {{- end }}
     {{- else }}
     - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro
@@ -34,6 +34,6 @@ spec:
               service:
                 name: {{ $.Values.service.name }}
                 port:
-                  number: {{ $.Values.service.ports[0].port }}
+                  number: {{ (index $.Values.service.ports 0).port }}
     {{- end }}
 {{- end }}
