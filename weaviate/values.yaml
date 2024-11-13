@@ -83,7 +83,6 @@ ingress:
       # Example for gRPC ingress annotations (Traefik):
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/service.serversscheme: h2c
-      traefik.ingress.kubernetes.io/router.tls: "true"
     hosts: []
       # - host: weaviate-grpc.yourdomain.com # Example with specific host for gRPC
 
