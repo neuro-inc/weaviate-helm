@@ -72,6 +72,8 @@ clusterApi:
   password: "" # If left empty, a random password will be generated
 
 
+preset_name: ""
+
 ingress:
   enabled: false
   clusterName: "weaviate" # Replace with your cluster name

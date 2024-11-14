@@ -187,6 +187,14 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
+Pod-specific labels
+*/}}
+{{- define "app.apoloPodLabels" -}}
+platform.apolo.us/preset: {{ .Values.preset_name }}
+platform.apolo.us/component: app
+{{- end }}
+
+{{/*
 Return Image pull secret Names
 Usage:
 {{- include "image.pullSecrets" (dict "pullSecrets" path_to_image_pullSecrets) | nindent 6 }}
