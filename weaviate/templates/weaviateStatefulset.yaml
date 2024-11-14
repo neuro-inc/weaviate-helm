@@ -28,6 +28,7 @@ spec:
         {{- with .Values.annotations }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+        {{- include "app.apoloPodLabels" . | nindent 8 }}
     spec:
       securityContext:
 {{ toYaml .Values.securityContext | indent 8}}
