@@ -192,6 +192,7 @@ Pod-specific labels
 {{- define "app.apoloPodLabels" -}}
 platform.apolo.us/preset: {{ .Values.preset_name }}
 platform.apolo.us/component: app
+openebs.io/skip-validation: "true"
 {{- end }}
 
 {{/*
