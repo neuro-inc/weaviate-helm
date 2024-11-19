@@ -1,7 +1,64 @@
 # Weaviate Helm Chart <img alt='Weaviate logo' src='https://raw.githubusercontent.com/weaviate/weaviate/19de0956c69b66c5552447e84d016f4fe29d12c9/docs/assets/weaviate-logo.png' width='180' align='right' />
 
 Helm chart for Weaviate application. Weaviate can be deployed to a Kubernetes cluster using this chart.
+## Apolo deployment example: 
 
+
+
+```zsh
+# Create a bucket for your backups
+apolo blob mkbucket --cluster novoserve --name weaviate-backup --project taddeus
+
+# Create credentials for that bucket
+apolo blob mkcredentials --cluster novoserve --project taddeus weaviate-backup
+
+
+# Run the job 
+apolo run --pass-config ghcr.io/neuro-inc/app-deployment \
+  -- install https://github.com/neuro-inc/weaviate-helm weaviate weaviate weaviate \
+  --timeout=15m0s \
+  --set preset_name=cpu-large \
+  --set persistence.size=64Gi \
+  --set ingress.enabled=true \
+  --set ingress.clusterName=novoserve \
+  --set ingress.grpc.enabled=true \
+  --set service.type=ClusterIP \
+  --set grpcService.type=ClusterIP \
+  --set clusterApi.username=taddeus \
+  --set clusterApi.password=secretpassword \
+  --set authentication.anonymous_access.enabled=false \
+  --set authorization.enabled=true \
+  --set backups.s3.enabled=true \
+  --set backups.s3.envconfig.BACKUP_S3_BUCKET=neuro-pl-0214c319f8-apolo-taddeus-weaviate-ba628efa4e761c \
+  --set backups.s3.secrets.AWS_ACCESS_KEY_ID=bkt-user-taddeus3f68fd \
+  --set backups.s3.secrets.AWS_SECRET_ACCESS_KEY=8286c6a0ccfde3f9d1739854f8c2ca9e44741cdf \
+  --set backups.s3.envconfig.BACKUP_S3_ENDPOINT=blob.novoserve.org.neu.ro \
+  --set backups.s3.envconfig.BACKUP_S3_REGION=minio
+
+
+# Or Run the flow in isolated environment
+apolo run --pass-config image://novoserve/apolo/taddeus/app-deployment \
+  -- install https://github.com/neuro-inc/weaviate-helm weaviate weaviate weaviate \
+  --timeout=15m0s \
+  --set preset_name=cpu-large \
+  --set persistence.size=64Gi \
+  --set ingress.enabled=true \
+  --set ingress.clusterName=novoserve \
+  --set ingress.grpc.enabled=true \
+  --set service.type=ClusterIP \
+  --set grpcService.type=ClusterIP \
+  --set clusterApi.username=taddeus \
+  --set clusterApi.password=secretpassword \
+  --set authentication.anonymous_access.enabled=false \
+  --set authorization.enabled=true \
+  --set backups.s3.enabled=true \
+  --set backups.s3.envconfig.BACKUP_S3_BUCKET=neuro-pl-0214c319f8-apolo-taddeus-weaviate-ba628efa4e761c \
+  --set backups.s3.secrets.AWS_ACCESS_KEY_ID=bkt-user-taddeus3f68fd \
+  --set backups.s3.secrets.AWS_SECRET_ACCESS_KEY=8286c6a0ccfde3f9d1739854f8c2ca9e44741cdf \
+  --set backups.s3.envconfig.BACKUP_S3_ENDPOINT=blob.novoserve.org.neu.ro \
+  --set backups.s3.envconfig.BACKUP_S3_REGION=minio
+
+```
 ## Usage
 
 [Helm](https://helm.sh) must be installed in order to use the weaviate chart.
