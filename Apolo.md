@@ -7,12 +7,10 @@ apolo run --pass-config ghcr.io/neuro-inc/app-deployment \
   -- install https://github.com/neuro-inc/weaviate-helm weaviate weaviate weaviate \
   --timeout=15m0s \
   --set preset_name=cpu-large \
-  --set persistence.size=64Gi \
+  --set persistence.size=32Gi \
   --set ingress.enabled=true \
   --set ingress.clusterName=novoserve \
   --set ingress.grpc.enabled=true \
-  --set service.type=ClusterIP \
-  --set grpcService.type=ClusterIP \
   --set clusterApi.username=taddeus \
   --set clusterApi.password=secretpassword \
   --set authentication.enabled=true \
@@ -24,12 +22,10 @@ apolo run --pass-config image://novoserve/apolo/taddeus/app-deployment \
   -- install https://github.com/neuro-inc/weaviate-helm weaviate weaviate weaviate \
   --timeout=15m0s \
   --set preset_name=cpu-large \
-  --set persistence.size=64Gi \
+  --set persistence.size=32Gi \
   --set ingress.enabled=true \
   --set ingress.clusterName=novoserve \
   --set ingress.grpc.enabled=true \
-  --set service.type=ClusterIP \
-  --set grpcService.type=ClusterIP \
   --set clusterApi.username=taddeus \
   --set clusterApi.password=secretpassword \
   --set authentication.enabled=true \
