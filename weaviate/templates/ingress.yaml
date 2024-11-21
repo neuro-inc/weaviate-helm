@@ -24,4 +24,5 @@ spec:
                 port:
                   number: {{ (index $.Values.service.ports 0).port }}
     {{- end }}
+    {{- end }}
 {{- end }}
