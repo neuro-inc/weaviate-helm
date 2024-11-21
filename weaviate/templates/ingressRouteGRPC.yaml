@@ -23,13 +23,5 @@ spec:
           port: {{ (index $.Values.grpcService.ports 0).port }}
           scheme: h2c
     {{- end }}
-    {{- else }}
-    - match: Host(`{{ .Release.Namespace }}-grpc.apps.{{ .Values.ingress.clusterName }}.org.neu.ro`)
-      kind: Rule
-      services:
-        - name: {{ $.Values.grpcService.name }}
-          port: {{ (index $.Values.grpcService.ports 0).port }}
-          scheme: h2c
-    {{- end }}
   tls: {}
 {{- end }}

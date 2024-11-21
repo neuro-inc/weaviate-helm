@@ -24,16 +24,4 @@ spec:
                 port:
                   number: {{ (index $.Values.service.ports 0).port }}
     {{- end }}
-    {{- else }}
-    - host: {{ .Release.Namespace }}.apps.{{ .Values.ingress.clusterName }}.org.neu.ro
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Values.service.name }}
-                port:
-                  number: {{ (index $.Values.service.ports 0).port }}
-    {{- end }}
 {{- end }}
