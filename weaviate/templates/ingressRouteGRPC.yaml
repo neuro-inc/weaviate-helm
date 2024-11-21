@@ -23,5 +23,6 @@ spec:
           port: {{ (index $.Values.grpcService.ports 0).port }}
           scheme: h2c
     {{- end }}
+    {{- end }}
   tls: {}
 {{- end }}
