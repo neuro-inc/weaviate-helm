@@ -1938,19 +1938,3 @@ affinity:
 ##
 priorityClassName: ""
 globalPriorityClassName: ""
-
-# Forward Authentication middleware settings
-# This middleware will be created if ingress is enabled AND (ingress.auth.enabled OR ingress.grpc.auth.enabled) is true
-# AND an address is provided.
-forwardAuth:
-  # Address of the forward authentication service (e.g., "http://auth-server.default.svc.cluster.local/verify")
-  # This field is REQUIRED for the middleware to be created.
-  address: ""
-  # Whether to trust the X-Forwarded-* headers coming from the downstream proxy
-  trustForwardHeader: true
-  # Headers to add to the request sent to the authentication service
-  authRequestHeaders: []
-  #   - "X-Auth-User"
-  # Headers to copy from the authentication service's response to the original request
-  authResponseHeaders: []
-  #   - "Authorization"
