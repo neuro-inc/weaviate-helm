@@ -6,7 +6,7 @@ metadata:
   name: forwardauth
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/name: {{ include "weaviate.name" . }}
+    app.kubernetes.io/name: {{ include "weaviate.fullname" . }}
     helm.sh/chart: {{ include "weaviate.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
