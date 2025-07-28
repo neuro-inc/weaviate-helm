@@ -120,6 +120,6 @@ jobs:
         run: |
           git config --global user.email "github-actions@example.local"
           git config --global user.name "GitHub Actions user"
-      
+
       - name: Run chart-releaser
         run: chartpress --publish-chart
