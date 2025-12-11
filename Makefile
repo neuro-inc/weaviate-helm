@@ -8,13 +8,13 @@ all clean test lint format:
 SHELL := /bin/sh -e
 
 
-.PHONY: lint format
-lint format:
+.PHONY: format
+format:
 ifdef CI
-	pre-commit run --all-files --show-diff-on-failure
+	poetry run pre-commit run --all-files --show-diff-on-failure
 else
 	# automatically fix the formatting issues and rerun again
-	pre-commit run --all-files || pre-commit run --all-files
+	poetry run pre-commit run --all-files || poetry run pre-commit run --all-files
 endif
 
 .PHONY: test
@@ -27,12 +27,6 @@ clean:
 
 .PHONY: install setup
 install setup: poetry.lock
-	poetry config virtualenvs.in-project true
-	poetry install --with dev
-	poetry run pre-commit install;
-
-.PHONY: install
-install:
 	poetry config virtualenvs.in-project true
 	poetry install --with dev
 	poetry run pre-commit install;
