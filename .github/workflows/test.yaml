@@ -11,18 +11,53 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.12
+          python-version-file: .python-version
+          cache: pip
       - uses: actions/cache@v4
         name: Define a cache for the virtual environment based on the dependencies lock file
         with:
           path: ./.venv
           key: venv-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Setup Python dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-
       - name: Install dependencies
         run: make install
       - name: Lint
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
           make lint
+
+  test-unit:
+    name: unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout commit
+        uses: actions/checkout@v4
+      - name: install python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+      - name: install poetry
+        run: pip install poetry
+      - name: setup python dependencies cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-${{ hashfiles('**/poetry.lock') }}
+          restore-keys: |
+            poetry-
+      - name: install dependencies
+        run: make setup
+      - name: run unit tests
+        run: make test-unit
 
   check:
     name: Check

@@ -1,12 +1,12 @@
+IMAGE_NAME ?= mlops-app-weaviate
+IMAGE_TAG ?= latest
+
+
 .PHONY: all clean test lint format
 all clean test lint format:
 
 SHELL := /bin/sh -e
 
-.PHONY: install
-install:
-	pip install pre-commit;
-	pre-commit install;
 
 .PHONY: lint format
 lint format:
@@ -22,3 +22,48 @@ test:
 
 .PHONY: clean
 clean:
+
+## -------
+
+.PHONY: install setup
+install setup: poetry.lock
+	poetry config virtualenvs.in-project true
+	poetry install --with dev
+	poetry run pre-commit install;
+
+.PHONY: install
+install:
+	poetry config virtualenvs.in-project true
+	poetry install --with dev
+	poetry run pre-commit install;
+
+
+.PHONY: lint
+lint: format
+	poetry run mypy .apolo
+
+.PHONY: test-unit
+test-unit:
+	poetry run pytest -vvs --cov=.apolo --cov-report xml:.coverage.unit.xml .apolo/tests/unit
+
+.PHONY: test-integration
+test-integration:
+	poetry run pytest -vv --cov=.apolo --cov-report xml:.coverage.integration.xml .apolo/tests/integration
+
+.PHONY: build-hook-image
+build-hook-image:
+	docker build \
+		--build-arg APP_IMAGE_TAG=$(IMAGE_TAG) \
+		-t $(IMAGE_NAME):latest \
+		-f hooks.Dockerfile \
+		.;
+
+.PHONY: push-hook-image
+push-hook-image:
+	docker tag $(IMAGE_NAME):latest ghcr.io/neuro-inc/$(IMAGE_NAME):$(IMAGE_TAG)
+	docker push ghcr.io/neuro-inc/$(IMAGE_NAME):$(IMAGE_TAG)
+
+.PHONY: gen-types-schemas
+gen-types-schemas:
+	app-types dump-types-schema .apolo/src/apolo_apps_weaviate WeaviateInputs .apolo/src/apolo_apps_weaviate/schemas/WeaviateInputs.json
+	app-types dump-types-schema .apolo/src/apolo_apps_weaviate WeaviateOutputs .apolo/src/apolo_apps_weaviate/schemas/WeaviateOutputs.json
