@@ -1,0 +1,26 @@
+- app_type: weaviate
+  name: weaviate
+  title: Weaviate
+  install_type: workflow
+  helm_path: weaviate
+  inputs:
+    schema_path: .apolo/src/apolo_apps_weaviate/schemas/WeaviateInputs.json
+    types_name: WeaviateInputs
+    processor: WeaviateInputsProcessor
+    image: ghcr.io/neuro-inc/mlops-app-weaviate
+  outputs:
+    schema_path: .apolo/src/apolo_apps_weaviate/schemas/WeaviateOutputs.json
+    types_name: WeaviateOutputs
+    processor: WeaviateOutputProcessor
+    image: ghcr.io/neuro-inc/mlops-app-weaviate
+  requires_token: true
+  short_description: Deploy Weaviate on Apolo platform
+  app_package_name: apolo_apps_weaviate
+  logo: https://storage.googleapis.com/development-421920-assets/app-logos/weaviate.svg
+  description: |
+    Weaviate is an open-source, cloud-native vector store and search engine.
+    It allows you to build, store and retrieve vector embeddings for your data.
+  tags: ["Apolo", "Weaviate", "Vector store", "Vector search", "Embeddings", "RAG"]
+  assets:
+    - type: image
+      url: https://storage.googleapis.com/development-421920-assets/app-logos/weaviate-banner.svg

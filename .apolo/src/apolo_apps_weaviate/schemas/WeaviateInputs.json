@@ -1,0 +1,212 @@
+{
+  "$defs": {
+    "ApoloAuth": {
+      "properties": {
+        "type": {
+          "const": "apolo_auth",
+          "default": "apolo_auth",
+          "description": "Authentication type identifier",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "title": "ApoloAuth",
+      "type": "object",
+      "x-description": "Use Apolo platform's built-in authentication and authorization. Requires authenticated user credentials with appropriate permissions.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Apolo Platform Authentication",
+      "x-type": "ApoloAuth"
+    },
+    "AuthIngressMiddleware": {
+      "properties": {
+        "name": {
+          "pattern": "^platform",
+          "title": "Name",
+          "type": "string",
+          "x-description": "Name of the authentication middleware (with namespace) to apply to ingress traffic.",
+          "x-is-advanced-field": false,
+          "x-is-configurable": true,
+          "x-meta-type": "inline",
+          "x-title": "Middleware Name"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "AuthIngressMiddleware",
+      "type": "object",
+      "x-description": "Configure authentication middleware for ingress traffic.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "integration",
+      "x-title": "Authentication Ingress Middleware",
+      "x-type": "AuthIngressMiddleware"
+    },
+    "CustomAuth": {
+      "properties": {
+        "type": {
+          "const": "custom_auth",
+          "default": "custom_auth",
+          "description": "Authentication type identifier",
+          "title": "Type",
+          "type": "string"
+        },
+        "middleware": {
+          "$ref": "#/$defs/AuthIngressMiddleware",
+          "x-description": "Custom authentication middleware configuration.",
+          "x-title": "Authentication Middleware"
+        }
+      },
+      "required": [
+        "middleware"
+      ],
+      "title": "CustomAuth",
+      "type": "object",
+      "x-description": "Use a custom authentication middleware for this ingress. Allows integration with custom authentication providers.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Custom Authentication",
+      "x-type": "CustomAuth"
+    },
+    "IngressHttp": {
+      "properties": {
+        "auth": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ApoloAuth"
+            },
+            {
+              "$ref": "#/$defs/NoAuth"
+            },
+            {
+              "$ref": "#/$defs/CustomAuth"
+            }
+          ],
+          "title": "Auth",
+          "x-description": "Configure authentication for this ingress. Choose Apolo platform authentication, custom middleware, or no authentication.",
+          "x-is-advanced-field": false,
+          "x-is-configurable": true,
+          "x-meta-type": "inline",
+          "x-title": "Authentication"
+        }
+      },
+      "title": "IngressHttp",
+      "type": "object",
+      "x-description": "Enable access to your application over the internet using HTTPS.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Enable HTTP Ingress",
+      "x-type": "IngressHttp"
+    },
+    "NoAuth": {
+      "properties": {
+        "type": {
+          "const": "no_auth",
+          "default": "no_auth",
+          "description": "Authentication type identifier",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "title": "NoAuth",
+      "type": "object",
+      "x-description": "Disable authentication for this ingress. The application will be publicly accessible without any authentication.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "No Authentication",
+      "x-type": "NoAuth"
+    },
+    "Preset": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "x-description": "The name of the preset.",
+          "x-is-advanced-field": false,
+          "x-is-configurable": true,
+          "x-meta-type": "inline",
+          "x-title": "Resource Preset"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Preset",
+      "type": "object",
+      "x-description": "Select the resource preset used per service replica.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Resource Preset",
+      "x-type": "Preset"
+    },
+    "WeaviatePersistence": {
+      "properties": {
+        "size": {
+          "default": 32,
+          "exclusiveMinimum": 0,
+          "title": "Size",
+          "type": "integer",
+          "x-description": "Specify the size of the storage volume in gigabytes.",
+          "x-is-advanced-field": false,
+          "x-is-configurable": true,
+          "x-meta-type": "inline",
+          "x-title": "Storage Size (GB)"
+        },
+        "enable_backups": {
+          "default": true,
+          "title": "Enable Backups",
+          "type": "boolean",
+          "x-description": "Enable periodic backups of Weaviate storage to object store. We automatically create bucket and the corresponding credentials for you. Note: this bucket will not be automatically removed when you remove the bucket.",
+          "x-is-advanced-field": false,
+          "x-is-configurable": true,
+          "x-meta-type": "inline",
+          "x-title": "Enable backups"
+        }
+      },
+      "title": "WeaviatePersistence",
+      "type": "object",
+      "x-description": "Configure Weaviate to store data in a persistent storage.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Weaviate persistence",
+      "x-type": "WeaviatePersistence"
+    }
+  },
+  "properties": {
+    "preset": {
+      "$ref": "#/$defs/Preset"
+    },
+    "persistence": {
+      "$ref": "#/$defs/WeaviatePersistence"
+    },
+    "ingress_http": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IngressHttp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "x-description": "Enable access to your application over the internet using HTTPS.",
+      "x-is-advanced-field": false,
+      "x-is-configurable": true,
+      "x-meta-type": "inline",
+      "x-title": "Enable HTTP Ingress"
+    }
+  },
+  "required": [
+    "preset",
+    "persistence"
+  ],
+  "title": "WeaviateInputs",
+  "type": "object"
+}
