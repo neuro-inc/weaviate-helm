@@ -1,22 +1,14 @@
 from pydantic import ConfigDict, Field, field_validator
 
-from apolo_app_types import AppInputs
+from apolo_app_types import AppInputs, WeaviateOutputs
 from apolo_app_types.protocols.common import (
     AbstractAppFieldType,
-    AppOutputs,
-    BasicAuth,
     IngressHttp,
     Preset,
     SchemaExtraMetadata,
 )
 from apolo_app_types.protocols.common.ingress import (
     INGRESS_HTTP_SCHEMA_EXTRA,
-)
-from apolo_app_types.protocols.common.networking import (
-    GraphQLAPI,
-    GrpcAPI,
-    RestAPI,
-    ServiceAPI,
 )
 
 
@@ -80,20 +72,4 @@ class WeaviateInputs(AppInputs):
     # )
 
 
-class WeaviateOutputs(AppOutputs):
-    graphql_endpoint: ServiceAPI[GraphQLAPI] | None = Field(
-        default=None,
-        description="The GraphQL endpoint.",
-        title="GraphQL endpoint",
-    )
-    rest_endpoint: ServiceAPI[RestAPI] | None = Field(
-        default=None,
-        description="The REST endpoint.",
-        title="REST endpoint",
-    )
-    grpc_endpoint: ServiceAPI[GrpcAPI] | None = Field(
-        default=None,
-        description="The GRPC endpoint.",
-        title="GRPC endpoint",
-    )
-    auth: BasicAuth = Field(default_factory=BasicAuth)
+__all__ = ["WeaviateInputs", "WeaviateOutputs", "WeaviatePersistence"]
