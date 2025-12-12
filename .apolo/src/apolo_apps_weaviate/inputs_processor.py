@@ -4,12 +4,13 @@ import typing as t
 
 import apolo_sdk
 
-from apolo_app_types import BasicAuth, WeaviateInputs
+from apolo_app_types import BasicAuth
 from apolo_app_types.app_types import AppType
 from apolo_app_types.helm.apps.base import BaseChartValueProcessor
 from apolo_app_types.helm.apps.common import gen_extra_values
 from apolo_app_types.helm.utils.buckets import get_or_create_bucket_credentials
 from apolo_app_types.helm.utils.deep_merging import merge_list_of_dicts
+from apolo_apps_weaviate.types import WeaviateInputs
 
 
 logger = logging.getLogger(__name__)
