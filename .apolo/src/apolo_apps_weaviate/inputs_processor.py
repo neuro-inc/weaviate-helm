@@ -51,7 +51,7 @@ class WeaviateInputsProcessor(BaseChartValueProcessor[WeaviateInputs]):
     async def _get_backup_values(self, app_name: str) -> dict[str, t.Any]:
         """Configure backup values for Weaviate using Apolo Blob Storage."""
 
-        name = f"app-weaviate-backup-{app_name}"
+        name = f"{app_name}-bkp"[:40]
 
         bucket_credentials = await get_or_create_bucket_credentials(
             client=self.client,
