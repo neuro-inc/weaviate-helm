@@ -20,6 +20,10 @@
   description: |
     Weaviate is an open-source, cloud-native vector store and search engine.
     It allows you to build, store and retrieve vector embeddings for your data.
+    Resource sizing options:
+    - Default (Weaviate only): 0.5 vCPU, 300MB RAM
+    - All modules enabled (1 replica each): ~5.5 vCPU, ~19 GB RAM
+    - HA setup (3 replicas + modules): ~6.5 vCPU, ~20 GB RAM
   tags: ["Apolo", "Weaviate", "Vector store", "Vector search", "Embeddings", "RAG"]
   assets:
     - type: image
