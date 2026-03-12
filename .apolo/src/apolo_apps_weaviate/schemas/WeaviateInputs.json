@@ -181,7 +181,9 @@
   },
   "properties": {
     "preset": {
-      "$ref": "#/$defs/Preset"
+      "$ref": "#/$defs/Preset",
+      "x-description": "Specify preset configuration to be used by the Weaviate. Minimal resources: 12 CPU cores, 36 GiB memory.",
+      "x-title": "Weaviate Preset"
     },
     "persistence": {
       "$ref": "#/$defs/WeaviatePersistence"
