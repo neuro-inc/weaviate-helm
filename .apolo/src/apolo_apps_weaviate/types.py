@@ -60,7 +60,14 @@ class WeaviatePersistence(AbstractAppFieldType):
 
 
 class WeaviateInputs(AppInputs):
-    preset: Preset
+    preset: Preset = Field(
+        ...,
+        json_schema_extra=SchemaExtraMetadata(
+            title="Weaviate Preset",
+            description="Specify preset configuration to be used by the Weaviate. "
+            "Minimal resources: 12 CPU cores, 36 GiB memory.",
+        ).as_json_schema_extra(),
+    )
     persistence: WeaviatePersistence
     ingress_http: IngressHttp | None = Field(
         default=None, json_schema_extra=INGRESS_HTTP_SCHEMA_EXTRA.as_json_schema_extra()

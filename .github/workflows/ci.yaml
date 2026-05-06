@@ -4,8 +4,7 @@ on:
   push:
     branches: [apolo]
     tags: ["v*"]
-  pull_request:
-    branches: [apolo]
+  pull_request: {}
   schedule:
     - cron: 0 4 * * *
 
