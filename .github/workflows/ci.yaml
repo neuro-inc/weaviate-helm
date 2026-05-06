@@ -12,7 +12,8 @@ jobs:
   test:
     name: All checks are passed
     uses: ./.github/workflows/test.yaml
-    secrets: inherit
+    # Required-check workflow must run for PRs from forks too; secrets are not
+    # available in that context, so do not inherit them.
 
   approve:
     name: Approve bot PR
