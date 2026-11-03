@@ -95,7 +95,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "HTTP API",
-      "x-type": "OpenAICompatibleEmbeddingsRestAPI"
+      "x-type": "GraphQLAPI"
     },
     "GrpcAPI": {
       "properties": {
@@ -168,7 +168,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "HTTP API",
-      "x-type": "OpenAICompatibleEmbeddingsRestAPI"
+      "x-type": "GrpcAPI"
     },
     "RestAPI": {
       "properties": {
@@ -241,7 +241,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "HTTP API",
-      "x-type": "OpenAICompatibleEmbeddingsRestAPI"
+      "x-type": "RestAPI"
     },
     "ServiceAPI_GraphQLAPI_": {
       "properties": {
@@ -285,7 +285,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "Service APIs",
-      "x-type": "ServiceAPI[GrpcAPI]"
+      "x-type": "ServiceAPI[GraphQLAPI]"
     },
     "ServiceAPI_GrpcAPI_": {
       "properties": {
@@ -373,7 +373,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "Service APIs",
-      "x-type": "ServiceAPI[GrpcAPI]"
+      "x-type": "ServiceAPI[RestAPI]"
     },
     "ServiceAPI_WebApp_": {
       "properties": {
@@ -417,7 +417,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "Service APIs",
-      "x-type": "ServiceAPI[GrpcAPI]"
+      "x-type": "ServiceAPI[WebApp]"
     },
     "WebApp": {
       "properties": {
@@ -490,7 +490,7 @@
       "x-is-configurable": true,
       "x-meta-type": "inline",
       "x-title": "HTTP API",
-      "x-type": "OpenAICompatibleEmbeddingsRestAPI"
+      "x-type": "WebApp"
     }
   },
   "properties": {

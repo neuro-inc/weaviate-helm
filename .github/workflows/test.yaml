@@ -63,6 +63,7 @@ jobs:
     name: Check
     needs:
       - lint
+      - test-unit
     runs-on: ubuntu-latest
     if: always()
     steps:
